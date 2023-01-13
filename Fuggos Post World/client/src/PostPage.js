@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {useState} from "react";
 import EnemyPost from "./EnemyPost";
+import {$} from "jquery";
 
 export default function PostPage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +57,17 @@ export default function PostPage() {
         }
     )
     window.onload = mapReplies();
+
+    function urlify(text) {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        return text.split(urlRegex)
+            .map(part => {
+                if(part.match(urlRegex)) {
+                    return "<a href={part}>{part}</a>";
+                }
+                return part;
+            });}
+
     function mapReplies() {
         data.numberInlineReplies = []
 
@@ -127,13 +139,12 @@ export default function PostPage() {
             let links = document.createElement('a');
             let greenText = document.createElement('p')
             let enemyPostBody = data.postReplies[k].replyBody + " ";
-
             for (let i = 0; i < enemyPostBody.length; i++) {
                 let postStr = ""
                 let greenStr =""
                 if (enemyPostBody[i] === '@') {
                     postStr += enemyPostBody[i];
-                    for (let j=i; j < enemyPostBody.length; j++) {
+                    for (let j=i+1; j < enemyPostBody.length; j++) {
                         if (/^\d/.test(enemyPostBody[j])) {
                             postStr += enemyPostBody[j];
                         }
@@ -162,34 +173,50 @@ export default function PostPage() {
 
                     }
                 }
-                // if (enemyPostBody[i] === '>'){
-                //     for (let j = i; j < enemyPostBody.length; j++) {
-                //         if (enemyPostBody[j] !== '\n') {
-                //             greenStr += enemyPostBody[j];
-                //             console.log(greenStr)
-                //     }
-                //
-                //
-                //         else {
-                //             let greenText = document.createElement('p');
-                //             greenText.className = "greenText";
-                //             greenText.innerText = greenStr;
-                //             greenText.innerHTML = greenStr;
-                //             i = j - 1;
-                //             whiteText.append(greenText)
-                //             greenText = ''
-                //             break;
-                //         }
-                //
-                //     }
-                // }
+
                 else {whiteText.append(enemyPostBody[i])}
 
             }            try {
                 document.getElementById("enemyPostText"+data.postReplies[k].postNumber).innerHTML = '';
+
+
+                // let temp = whiteText.innerHTML;
+                // if (temp.includes("http://")){
+                //     let indexOfURL = temp.indexOf("http://")
+                //     console.log(indexOfURL)
+                //     let grabbedURL = temp.substring(indexOfURL, temp.indexOf(''))
+                //     console.log("Our Post is : " + temp)
+                //     console.log("We grabbed : " + grabbedURL)
+                //
+                //
+                //
+                // }
+                // function urlify(text) {
+                //     const urlRegex = /(https?:\/\/[^\s]+)/g;
+                //     return text.split(urlRegex)
+                //         .map(part => {
+                //             if(part.match(urlRegex)) {
+                //                 return <a href={part}>{part}</a>;
+                //             }
+                //             return part;
+                //         });}
+                let temp = whiteText.innerHTML;
+                whiteText.innerHTML = `<p className="greenText">${whiteText.innerHTML.replaceAll('>',">")}</p>`;
+                // if (whiteText.innerHTML.includes(">"))
+                // for (let i=0; i<whiteText.innerHTML.length; i++){
+                //     let letter = temp[i];
+                //     if (letter === '>'){
+                //         console.log(whiteText.innerHTML[i])
+                //
+                //         whiteText.innerHTML[i].replaceAll(">", "!")
+                //         for (let j = 0; j < whiteText.innerHTML.length; j++) {
+                //         }
+                //     }
+                // }
+
                 createdElement.append(whiteText)
                 createdElement.append(links)
-                console.log(createdElement.innerHTML);
+                // console.log(createdElement.innerHTML);
                 document.getElementById("enemyPostText"+data.postReplies[k].postNumber).append(createdElement)
                 // return createdElement;
             }
