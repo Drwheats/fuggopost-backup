@@ -1,0 +1,405 @@
+* {
+
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+    text-align: center;
+  margin: 0;
+}
+
+.nav {
+    height: 70px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.site-title {
+    font-size: 2rem;
+}
+
+.nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .35rem;
+}
+.goButton{
+
+}
+.loginButton{
+    float: top;
+    padding: 5px;
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    width: 35%;
+}
+
+nav li.active {
+  background-color: #555;
+}
+
+.nav li:hover {
+  color: gray;
+  background-color: black;
+}
+
+.submissionForm {
+    margin: auto;
+    display: block;
+    display: none;
+}
+
+textarea{
+    border-color: black;
+    border-width: 5px;
+    background-color: lightgrey;
+}
+
+input[type=text] {
+    border-color: black;
+    border-width: 5px;
+    background-color: lightgrey;
+}
+
+input[type=text]:focus{
+    border-color: lightblue;
+    outline: 2px solid lightskyblue;     /* oranges! yey */
+}
+
+.mainTextSubmit {
+    width: 300px;
+    height: 200px;
+
+}
+a{ color: black}
+a:link{ text-decoration: none}
+.postHolder {
+    border-style: solid;
+    background-color: lightblue;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: fit-content;
+    max-width: 80%;
+    min-width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.2s;
+    height: fit-content;
+    max-height: 500px;
+
+    overflow-x: auto;
+}
+
+.postHeader {
+    display: flex;
+    background-color: darkgrey;
+    margin: auto;
+}
+
+.postFooter {
+    background-color: darkgray;
+    display: flex;
+    margin:auto;
+}
+
+.replies {
+    margin-left: auto;
+}
+
+.replyNow {
+    margin-left: 50px;
+}
+
+.trashHolder {
+    margin-left: auto;
+
+}
+
+.postHolder:hover {
+    background-color: darkslategray;
+    color: white;
+    /*box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);*/
+    box-shadow: 10px 5px 5px darkslategrey;
+
+}
+
+/* Add some padding inside the card container */
+.postTopic {
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 16px;
+}
+
+.postText{
+    padding: 5px;
+    text-align: left;
+}
+
+.cards {
+    display: block;
+    /*flex-wrap: wrap;*/
+}
+
+.toolContainer {
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    display: flex;
+}
+
+.searchBar {
+    margin-bottom: 10px;
+    justify-content: space-between;
+    text-align: right;
+    display: inline-block;
+    display: none;
+}
+.postButtonHolder{
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+
+
+.enemyPostHolder {
+
+    justify-self: auto;
+    box-shadow: 10px 5px 5px darkslategrey;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: fit-content;
+    border-style: solid;
+    border-width: 2px;
+    margin-left: 20px;
+    padding: 10px;
+    height: 10%;
+    background-color: lightblue;
+
+}
+
+.enemyPostHeader {
+    width: fit-content;
+    height: 10%;
+    flex-wrap: wrap;
+    display: flex;
+    margin-left: 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.enemyPostName {
+    margin-left: 20px;
+}
+
+.enemyPostText {
+    padding: 5px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.originalPoster {
+    box-shadow: 10px 5px 5px darkslategrey;
+
+    border-style: solid;
+    margin-left: 10px;
+    text-align: left;
+    margin-top: 20px;
+    width: 60%;
+    padding: 10px;
+    height: 10%;
+    background-color: grey;
+}
+
+.originalPosterHeader {
+    flex-wrap: wrap;
+    height: 10%;
+    display: flex;
+    text-align: left;
+    font-size: 14px;
+}
+
+.originalPosterName {
+    margin-left: 20px;
+}
+
+.submissionFormReply {
+
+    padding: 20px;
+    float: left;
+    display: flex;
+    justify-content: left;
+}
+
+.replies {
+    margin: auto;
+    display: flex;
+    font-size: 12px;
+}
+
+
+button {
+    background-color: darkslategrey; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+    font-size: 16px;
+}
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+
+}
+
+
+.replyHeaderHolder {
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 50px;
+}
+
+.plusGuy {
+    display: flex;
+    vertical-align: auto;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+.replyMinusSign {
+
+}
+
+.replyTrashSign {
+    text-align: right;
+    margin-left: auto;
+}
+
+.inlineReply {
+    font-size: 20px;
+    color: darkgreen;
+
+}
+
+.inlineReply:after {
+    display: none;
+    position: absolute;
+    background-color: #eee;
+    z-index: 10;
+    content: attr(textFloat);
+
+}
+.inlineReply:hover:after {
+    border-style: solid;
+    border-color: black;
+
+    display: inline-block;
+}
+
+.inlineReply2 {
+    font-size: 20px;
+    color: darkgreen;
+
+}
+
+.inlineReply2:after {
+    display: none;
+    position: absolute;
+    background-color: #eee;
+    z-index: 10;
+    content: attr(textFloat);
+
+}
+
+
+.inlineReply2:hover:after {
+    border-style: solid;
+    border-color: black;
+
+    display: contents;
+}
+
+.inlineReply3 {
+    font-size: 20px;
+    color: darkgreen;
+
+}
+
+.inlineReply3:after {
+    display: none;
+    position: absolute;
+
+    background-color: #eee;
+    z-index: 10;
+    content: attr(textFloat);
+
+    /*content: attr(textContent);*/
+}
+
+
+.inlineReply3:hover:after {
+    border-style: solid;
+    border-color: black;
+
+    display: contents;
+}
+
+.timeStampOP{
+    margin-left: 200px;
+}
+
+.enemyTimeStamp{
+    margin-left: 30px;
+}
+
+.backwardButton{
+    width: 10%;
+}
+
+.forwardButton{
+    width: 10%;
+}
+
+pre{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.greenText{
+    color: green;
+}
+
+#reply1 {
+    color: lightblue;
+    background-color: black;
+}
+
+.hideSearch{
+    float: left;
+    width: 30%;
+}

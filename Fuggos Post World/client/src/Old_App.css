@@ -1,0 +1,181 @@
+.app {
+  background-color: rgb(30, 100, 150);
+}
+  header {
+    background-color: rgb(130, 125, 150);
+    height: 15vh;
+    text-align: center;
+    }
+    .pageTitle {
+      vertical-align: top;
+      display: inline-block;
+      width: 35%;
+      height: 80%;
+      font-size: 30px;
+    }
+      .pageTitle h1 {
+        margin: 0;
+        margin-top: 20px;
+      }
+    .settings {
+      display: inline-block;
+      width: 30%;
+    }
+      .settings button {
+        height: 100px;
+        width: 100px;
+        vertical-align: top;
+        border: 1px solid black;
+        border-radius: 20px;
+        margin: 15px;
+        font-size: 20px;
+      }
+      .settings button:active {
+        border: 0;
+      }
+    .leaderboard {
+      background-color: rgb(200, 170, 180);
+      display: inline-block;
+      vertical-align: top;
+      width: calc(35% - 45px);
+      height: calc(100% - 10px);
+      padding: 5px;
+      padding-left: 40px;
+      overflow-y: hidden;
+      color: black;
+      font-size: 35px;
+    }
+    .leaderboard:hover {
+      position: relative;
+      z-index: 1;
+      height: 50vh;
+      width: calc(35% - 47px);
+      overflow-y: scroll;
+      border-left: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+      .leaderboard h5 {
+        font-size: 30px;
+        margin: 0;
+        text-decoration: underline;
+      }
+  main {
+      height: 85vh;
+  }
+    .gameOptions {
+      height: 15%;
+      /* I am going to change this from being hidden/unhidden based on the state of the program. */
+      visibility: hidden;
+      background-color: rgb(30, 75, 120);
+      color: aliceblue;
+      font-size: 20px;
+      text-align: center;
+      display: flex;
+    }
+      .gameOptions button {
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 75px;
+        width: 300px;
+        border: 1px solid black;
+        border-radius: 25px;
+        font-size: large;
+      }
+      .gameOptions button:active {
+        border: 0;
+      }
+
+      .presetOptions {
+        display: flex;
+        margin-left: 10%;
+        width: 50%;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+      .customOption {
+        margin-top: auto;
+        margin-bottom: auto;
+        padding-left: 75px;
+        display: flex;
+        width: 50%;
+      }
+        .customOption input {
+          width: 75px;
+          height: 65px;
+          font-size:30px;
+          margin: 5px;
+        }
+    .mineMap {
+      background-color: rgb(30, 100, 150);
+      text-align: center;
+      min-height:calc(85% - 30px);
+      padding: 15px;
+    }
+    .mineMap p {
+      font-size: 30px;
+      color: aliceblue;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 0;
+      margin-bottom: 15px;
+    }
+    /* We are going to change the height/width of this in CSS if the mode is set to hard. */
+    .mineMap button {
+      height: 50px;
+      width: 50px;
+      border: 1px solid grey;
+      border-radius: 5px;
+      vertical-align: top;
+      text-align: center;
+      color: black;
+    }
+    button.playButton {
+      background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url("./media/spaceBackground.png");
+      width: 150px;
+      height: 110px;
+      top: 35%;
+      left: calc(50% - 75px);
+      position: fixed;
+      border: 2px solid white;
+      border-radius: 20px;
+      font-size: 25px;
+      color: aliceblue;
+    }
+    button.playButton:active {
+      background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("./media/spaceBackground.png");
+      border-color: lightgrey;
+    }
+    .mineMap .smallSquare {
+      height: 35px;
+      width: 35px;
+      text-align: center;
+    }
+
+    .highScoreForm {
+      visibility: hidden;
+      text-align: center;
+      vertical-align: top;
+      color: aliceblue;
+      font-size: 30px;
+    }
+      .highScoreForm input {
+        height: 30px;
+        font-size: 25px;
+      }
+      .highScoreForm button {
+        background-color: azure;
+        height: 50px;
+        width: 90px;
+        margin-left: 15px;
+        font-size: 20px;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+      /* Probably the only thing that I've actually changed CSS wise is this timer. */
+      .timer {
+        font-size: x-large;
+        color: white;
+        display: flex;
+        /* visibility: hidden; */
+      }
+    
