@@ -36,7 +36,7 @@ export default function PostPage() {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("http://localhost:3001/submitReply", scoreJSON)
+        fetch("https://vercel.com/drwheats/fuggopost-server/submitReply", scoreJSON)
             .then(response => response.json());
         setIsLoading(true);
     }
@@ -44,7 +44,7 @@ export default function PostPage() {
     // Fetching the data JSON variable from the server.
     useEffect(() => {
         if (isLoading) {
-            fetch("http://localhost:3001/pageInfo", scoreJSON)
+            fetch("https://vercel.com/drwheats/fuggopost-server/pageInfo", scoreJSON)
                 .then(response => response.json())
                 .then((
                     result) => {

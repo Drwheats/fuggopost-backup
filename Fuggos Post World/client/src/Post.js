@@ -21,7 +21,7 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         }
 
         console.log(scoreJSON)
-        fetch("http://localhost:3001/delete", scoreJSON)
+        fetch("https://vercel.com/drwheats/fuggopost-server/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+postNumber).style.display = "none";
     }

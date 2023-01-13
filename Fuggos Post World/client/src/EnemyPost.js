@@ -14,7 +14,8 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
             body: json_body
         }
         // console.log(scoreJSON)
-        fetch("http://localhost:3001/delete", scoreJSON)
+        //"http://localhost:3001/delete"
+        fetch("https://vercel.com/drwheats/fuggopost-server/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+enemyPostNumber).style.display = "none";
     }

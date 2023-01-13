@@ -24,7 +24,7 @@ export default function HighScores({contentPage}) {
                     headers: { 'Content-Type': 'application/json' },
                     body: json_body
                 }
-                fetch("http://localhost:3001/postNumber", scoreJSON)
+                fetch("https://vercel.com/drwheats/fuggopost-server/postNumber", scoreJSON)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -109,7 +109,7 @@ export default function HighScores({contentPage}) {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("http://localhost:3001/submit", scoreJSON)
+        fetch("https://vercel.com/drwheats/fuggopost-server/submit", scoreJSON)
             .then(response => response.json());
         setData(true);
 
