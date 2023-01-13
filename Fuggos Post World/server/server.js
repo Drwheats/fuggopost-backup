@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
-const PORT = process.env.PORT || 3001;
+// server is 3001 for local, 4k for vercel.
+const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const pathToJSON = './highscores.json'
