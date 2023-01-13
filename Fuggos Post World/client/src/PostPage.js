@@ -58,16 +58,6 @@ export default function PostPage() {
     )
     window.onload = mapReplies();
 
-    function urlify(text) {
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        return text.split(urlRegex)
-            .map(part => {
-                if(part.match(urlRegex)) {
-                    return "<a href={part}>{part}</a>";
-                }
-                return part;
-            });}
-
     function mapReplies() {
         data.numberInlineReplies = []
 
@@ -118,30 +108,87 @@ export default function PostPage() {
 
                 }
             }
-
-            // we are going to linkify all @'s in this one.
-
-            // for (let i = 0; i < data.postReplies.length; i++) {
-            //     for (let j = 0; j < holder.length; j++) {
-            //     let placeHolder = data.postReplies[i].replyBody;
-            //         console.log(placeHolder)
-            // }}
-
-
-        return 0;
+            return 0;
         }
         )
     }
     function insertInlineReplies(){
         for (let k =0; k< data.postReplies.length; k++){
+
+            let greenStr = ""
+            let greenText = document.createElement('p');
+
             let createdElement = document.createElement('span');
+            let holderElement = document.createElement('pre');
             let whiteText = document.createElement('pre');
             let links = document.createElement('a');
-            let greenText = document.createElement('p')
-            let enemyPostBody = data.postReplies[k].replyBody + " ";
+            let enemyPostBody = data.postReplies[k].replyBody + " \n";
+            let postStr = "";
             for (let i = 0; i < enemyPostBody.length; i++) {
-                let postStr = ""
-                let greenStr =""
+                let greenText = document.createElement('p')
+
+                if (enemyPostBody[i] === '>') {
+                    let greenStr = "";
+                    for (let j=i; j < enemyPostBody.length; j++) {
+                        if (enemyPostBody[j] !== '\n'){
+                            console.log(enemyPostBody.length)
+                            greenStr += enemyPostBody[j];
+                            console.log(greenStr)
+                        }
+                        // The below code doesn't work. It duplicates shit and adds shit to whitespace, it does not add inline @s to greentext.
+                        // if (enemyPostBody[j] === '@') {
+                        //     postStr += enemyPostBody[j];
+                        //     for (let k=j+1; k < enemyPostBody.length; k++) {
+                        //         if (/^\d/.test(enemyPostBody[k])) {
+                        //             postStr += enemyPostBody[k];
+                        //         }
+                        //         else if (postStr === '@'){
+                        //             break;
+                        //         }
+                        //         else {
+                        //             // console.log("we are about to append " + postStr)
+                        //             let postLink = document.createElement('a')
+                        //             postLink.className = "inlineReply";
+                        //             postLink.textValue = postStr;
+                        //             postLink.content = postStr;
+                        //
+                        //             postLink.id = "inlineReply"+data.postReplies[k].postNumber;
+                        //
+                        //             postLink.innerHTML = postStr;
+                        //             postLink.setAttribute('href', '#reply'+postStr.slice(1));
+                        //             try{
+                        //                 postLink.setAttribute('textfloat', document.getElementById("reply"+postStr.slice(1)).innerText);
+                        //             }
+                        //             catch (e){}
+                        //             greenText.append(postLink)
+                        //             postLink = ""
+                        //             i = j;
+                        //             break;
+                        //         }
+                        //
+                        //     }
+                        // }
+
+                        else {
+                            // console.log("we are about to append " + postStr)
+                            console.log(greenStr + " logged!")
+                            greenText.setAttribute("className", "greenText");
+                            greenText.className = "greenText";
+                            greenText.textValue = greenStr;
+                            greenText.innerHTML = greenStr;
+                            whiteText.insertAdjacentElement("beforeend", greenText);
+                            greenStr = ""
+                            greenText = document.createElement('p');
+                            i = j;
+                            break;
+                        }
+
+
+
+                    }
+
+                }
+
                 if (enemyPostBody[i] === '@') {
                     postStr += enemyPostBody[i];
                     for (let j=i+1; j < enemyPostBody.length; j++) {
@@ -167,6 +214,8 @@ export default function PostPage() {
                             }
                             catch (e){}
                             whiteText.append(postLink)
+                            postStr = "";
+                            postLink = ""
                             i = j -1;
                             break;
                         }
@@ -176,49 +225,16 @@ export default function PostPage() {
 
                 else {whiteText.append(enemyPostBody[i])}
 
-            }            try {
+            }
+            console.log(greenStr)
+            greenText.append(greenStr)
+            whiteText.append(greenText)
+            console.log(whiteText.innerHTML)
+            try {
                 document.getElementById("enemyPostText"+data.postReplies[k].postNumber).innerHTML = '';
-
-
-                // let temp = whiteText.innerHTML;
-                // if (temp.includes("http://")){
-                //     let indexOfURL = temp.indexOf("http://")
-                //     console.log(indexOfURL)
-                //     let grabbedURL = temp.substring(indexOfURL, temp.indexOf(''))
-                //     console.log("Our Post is : " + temp)
-                //     console.log("We grabbed : " + grabbedURL)
-                //
-                //
-                //
-                // }
-                // function urlify(text) {
-                //     const urlRegex = /(https?:\/\/[^\s]+)/g;
-                //     return text.split(urlRegex)
-                //         .map(part => {
-                //             if(part.match(urlRegex)) {
-                //                 return <a href={part}>{part}</a>;
-                //             }
-                //             return part;
-                //         });}
-                let temp = whiteText.innerHTML;
-                whiteText.innerHTML = `<p className="greenText">${whiteText.innerHTML.replaceAll('>',">")}</p>`;
-                // if (whiteText.innerHTML.includes(">"))
-                // for (let i=0; i<whiteText.innerHTML.length; i++){
-                //     let letter = temp[i];
-                //     if (letter === '>'){
-                //         console.log(whiteText.innerHTML[i])
-                //
-                //         whiteText.innerHTML[i].replaceAll(">", "!")
-                //         for (let j = 0; j < whiteText.innerHTML.length; j++) {
-                //         }
-                //     }
-                // }
-
                 createdElement.append(whiteText)
                 createdElement.append(links)
-                // console.log(createdElement.innerHTML);
                 document.getElementById("enemyPostText"+data.postReplies[k].postNumber).append(createdElement)
-                // return createdElement;
             }
 
             catch (e){}

@@ -17,16 +17,16 @@ app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// let lastPostNumber = 0;
-// try {
-//   lastPostNumber = highScores[highScores.length - 1].postNumber + 1;
-// }
-//
-// catch (e){
-//   console.log("First Post!")}
+let lastPostNumber = 0;
+try {
+  lastPostNumber = highScores[highScores.length - 1].postNumber + 1;
+}
 
-let newfile = new ActiveXObject("Scripting.FileSystemObject");
-let openFile = newfile.OpenTextFile("C:\\testfile.txt", 1, true);
+catch (e){
+  console.log("First Post!")}
+
+// let newfile = new ActiveXObject("Scripting.FileSystemObject");
+// let openFile = newfile.OpenTextFile("C:\\testfile.txt", 1, true);
 
 
 
