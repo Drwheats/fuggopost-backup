@@ -21,7 +21,7 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         }
 
         console.log(scoreJSON)
-        fetch("https://fugserver.vercel.app/delete", scoreJSON)
+        fetch("https://fuggo-374704.uw.r.appspot.com/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+postNumber).style.display = "none";
     }

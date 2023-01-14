@@ -24,20 +24,18 @@ export default function HighScores({contentPage}) {
                     headers: { 'Content-Type': 'application/json' },
                     body: json_body
                 }
-                fetch("https://fugserver.vercel.app/postNumber", scoreJSON)
+                fetch("https://fuggo-374704.uw.r.appspot.com/postNumber", scoreJSON)
                 .then(res => res.json())
                 .then(
                     (result) => {
                         // console.log('successfully fetched data.')
                         let headerPost = {postBody: "Welcome to /b/! This forum has no topic. Post away! ", postName: "Fuggo", postTopic: "/b/", postNumber: 1, postVisibility: true, postReplies: [{postBody: "Hello"}], timePosted: "2021"}
-                        result.unshift(headerPost);
+                            result.unshift(headerPost);
                         console.log(result)
                         setAllPosts(result);
                         setData(false);
                         let tempPosts = allPosts.slice(postPage*10, postPage *10 +9)
-                        setRenderedPosts(tempPosts);
-
-                    }
+                        setRenderedPosts(tempPosts);}
                 )}
 
     }, [data, allPosts])
@@ -109,7 +107,7 @@ export default function HighScores({contentPage}) {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("https://fugserver.vercel.app/submit", scoreJSON)
+        fetch("https://fuggo-374704.uw.r.appspot.com/submit", scoreJSON)
             .then(response => response.json());
         setData(true);
 

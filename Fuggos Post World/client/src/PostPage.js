@@ -36,7 +36,7 @@ export default function PostPage() {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("https://fugserver.vercel.app/submitReply", scoreJSON)
+        fetch("https://fuggo-374704.uw.r.appspot.com/submitReply", scoreJSON)
             .then(response => response.json());
         setIsLoading(true);
     }
@@ -44,7 +44,7 @@ export default function PostPage() {
     // Fetching the data JSON variable from the server.
     useEffect(() => {
         if (isLoading) {
-            fetch("https://fugserver.vercel.app/pageInfo", scoreJSON)
+            fetch("https://fuggo-374704.uw.r.appspot.com/pageInfo", scoreJSON)
                 .then(response => response.json())
                 .then((
                     result) => {
