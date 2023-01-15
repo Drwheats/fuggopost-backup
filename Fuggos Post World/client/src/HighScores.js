@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import PostMap from "./PostMap";
+import { ImSearch, ImZoomOut, ImArrowLeft, ImArrowRight } from "react-icons/im"
+
 
 export default function HighScores({contentPage}) {
     const [data, setData] = useState(true);
