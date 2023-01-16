@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {useState} from "react";
 import EnemyPost from "./EnemyPost";
 import {ImArrowLeft} from "react-icons/im"
+import {render} from "@testing-library/react";
 
 export default function PostPage() {
 
@@ -126,9 +127,9 @@ export default function PostPage() {
         }
         )
     }
+
     function insertInlineReplies(){
         for (let k =0; k< data.postReplies.length; k++){
-
             let greenStr = ""
             let greenText = document.createElement('p');
 
@@ -149,42 +150,8 @@ export default function PostPage() {
                             greenStr += enemyPostBody[j];
                             console.log(greenStr)
                         }
-                        // The below code doesn't work. It duplicates shit and adds shit to whitespace, it does not add inline @s to greentext.
-                        // if (enemyPostBody[j] === '@') {
-                        //     postStr += enemyPostBody[j];
-                        //     for (let k=j+1; k < enemyPostBody.length; k++) {
-                        //         if (/^\d/.test(enemyPostBody[k])) {
-                        //             postStr += enemyPostBody[k];
-                        //         }
-                        //         else if (postStr === '@'){
-                        //             break;
-                        //         }
-                        //         else {
-                        //             // console.log("we are about to append " + postStr)
-                        //             let postLink = document.createElement('a')
-                        //             postLink.className = "inlineReply";
-                        //             postLink.textValue = postStr;
-                        //             postLink.content = postStr;
-                        //
-                        //             postLink.id = "inlineReply"+data.postReplies[k].postNumber;
-                        //
-                        //             postLink.innerHTML = postStr;
-                        //             postLink.setAttribute('href', '#reply'+postStr.slice(1));
-                        //             try{
-                        //                 postLink.setAttribute('textfloat', document.getElementById("reply"+postStr.slice(1)).innerText);
-                        //             }
-                        //             catch (e){}
-                        //             greenText.append(postLink)
-                        //             postLink = ""
-                        //             i = j;
-                        //             break;
-                        //         }
-                        //
-                        //     }
-                        // }
 
                         else {
-                            // console.log("we are about to append " + postStr)
                             console.log(greenStr + " logged!")
                             greenText.setAttribute("className", "greenText");
                             greenText.className = "greenText";
@@ -213,7 +180,6 @@ export default function PostPage() {
                             break;
                         }
                         else {
-                            // console.log("we are about to append " + postStr)
                             let postLink = document.createElement('a')
                             postLink.className = "inlineReply";
                             postLink.textValue = postStr;
@@ -240,10 +206,8 @@ export default function PostPage() {
                 else {whiteText.append(enemyPostBody[i])}
 
             }
-            console.log(greenStr)
             greenText.append(greenStr)
             whiteText.append(greenText)
-            console.log(whiteText.innerHTML)
             try {
                 document.getElementById("enemyPostText"+data.postReplies[k].postNumber).innerHTML = '';
                 createdElement.append(whiteText)
@@ -287,15 +251,11 @@ export default function PostPage() {
     function LoadAfter5Seconds() {
         setIsLoading(true);
     }
-    // LoadAfter5Seconds();
-
-    // React.useEffect() {
-    //     mapReplies();
-    //     insertInlineReplies();
-    //     insertTopReplies();
-    // }
+    useEffect(() => {
+        setIsLoading(false);
+        }
+    )
     return (
-
         <div className="postPage" >
             <button onClick={LoadAfter5Seconds} className="replyLoader">Load Replies!</button>
             <div className="originalPoster" id={"reply"+data.postNumber}><ul className="inlineReply">{data.numberInlineReplies.map((r) => {
