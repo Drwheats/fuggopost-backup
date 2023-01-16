@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import PostMap from "./PostMap";
 import { ImSearch, ImZoomOut, ImArrowLeft, ImArrowRight } from "react-icons/im"
 
-
 export default function HighScores({contentPage}) {
     const [data, setData] = useState(true);
     const [allPosts, setAllPosts] = useState([]);
@@ -23,15 +22,16 @@ export default function HighScores({contentPage}) {
                     { postPage })
                 const scoreJSON = {
                     method: 'post',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {"access-control-allow-origin" : "*",
+                        'Content-Type': 'application/json' },
                     body: json_body
                 }
-                fetch("https://fuggo-374704.uw.r.appspot.com/postNumber", scoreJSON)
+                fetch("http://localhost:3001/postNumber", scoreJSON)
                 .then(res => res.json())
                 .then(
                     (result) => {
                         // console.log('successfully fetched data.')
-                        let headerPost = {postBody: "Welcome to /b/! This forum has no topic. Post away! ", postName: "Fuggo", postTopic: "/b/", postNumber: 1, postVisibility: true, postReplies: [{postBody: "Hello"}], timePosted: "2021"}
+                        let headerPost = {postBody: "Welcome to /b/! This forum has no topic. Post away! ", postName: "Fuggo", postTopic: "/b/", postNumber: 0, postVisibility: true, postReplies: [], timePosted: "2021"}
                             result.unshift(headerPost);
                         console.log(result)
                         setAllPosts(result);
@@ -109,7 +109,7 @@ export default function HighScores({contentPage}) {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("https://fuggo-374704.uw.r.appspot.com/submit", scoreJSON)
+        fetch("http://localhost:3001/submit", scoreJSON)
             .then(response => response.json());
         setData(true);
 
@@ -192,7 +192,7 @@ export default function HighScores({contentPage}) {
         <div className="mainPostPage">
             <div className="toolContainer">
                 <div className="searchButtonHolder" id="searchButtonHolder"
-                > <button onClick={showSearch}>SEARCH</button></div>
+                > <ImSearch className="searchIcon" size={20} onClick={showSearch}>SEARCH</ImSearch></div>
                 <div className="searchBar" id="searchBar">
                 <h3>Find Posts</h3>
                 <div>
@@ -205,7 +205,7 @@ export default function HighScores({contentPage}) {
                     <label>Content: </label><input type="text" className="searchBarContent" id="searchBarContent" onChange={changeSearchContent}/>
                 </div>
                 <button className="clearButton" onClick={clearFilters}>CLEAR ALL FILTERS</button>
-                    <button className="hideSearch" onClick={hideSearch}>HIDE</button>
+                    <ImZoomOut className="hideSearch" size={20} onClick={hideSearch}>HIDE</ImZoomOut>
 
                 </div>
 
@@ -220,8 +220,8 @@ export default function HighScores({contentPage}) {
                     <textarea placeholder="Post" onChange={changeInputPostBody} className="mainTextSubmit"/>
                     <span className="fileUploadHolder">
                                           <input
-                                              filename={file}
-                                              onChange={e => setFile(e.target.files[0])}
+                                              // filename={file}
+                                              // onChange={e => setFile(e.target.files[0])}
                                               type="file"
                                               accept="image/*"
                                           ></input>
@@ -235,5 +235,5 @@ export default function HighScores({contentPage}) {
          <div className='posts' id='posts'><PostMap posters={allPosts.slice(postPage*10, postPage *10 +9)}  className="postMap"/>
          </div>
         </div>
-    <div className="footer" id="footer"> <button onClick={pageBack} className="backwardButton">BACK</button> Now Browsing Page : {postPage + 1}<button onClick={pageForward} className="forwardButton">FORWARD</button></div>
+    <div className="footer" id="footer"> <ImArrowLeft color={"darkslategrey"} size={30} onClick={pageBack} className="backwardButton">BACK</ImArrowLeft> Now Browsing Page : {postPage + 1}<ImArrowRight color={"darkslategrey"} size={30} onClick={pageForward} className="forwardButton">FORWARD</ImArrowRight></div>
         </div> )}

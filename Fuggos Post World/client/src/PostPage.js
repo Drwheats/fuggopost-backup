@@ -1,23 +1,30 @@
 import {useEffect} from "react";
 import {useState} from "react";
 import EnemyPost from "./EnemyPost";
-import {$} from "jquery";
+import {ImArrowLeft} from "react-icons/im"
 
 export default function PostPage() {
+
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState({postName: "", postTopic: "", postBody: "", postNumber: 0, postVisibility: true, postReplies: [], numberInlineReplies: [], timePosted: ""});
     // const [inlineReplies, setInlineReplies] = useState();
     const [clientReplyBody, setClientReplyBody] = useState("no text");
     const [clientReplyName, setClientReplyName] = useState("anonymous");
-
     let pageLoc = window.location.pathname.split('/')[2];
     let json_body = JSON.stringify({ pageLoc })
+
+    function wait(ms){
+        let start = new Date().getTime();
+        let end = start;
+        while(end < start + ms) {
+            end = new Date().getTime();
+        }
+    }
     const scoreJSON = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: json_body
     }
-
     // ALl things REPLIES go here:
     const changeInputNameValue = (event) => {
         setClientReplyName(event.target.value);
@@ -36,15 +43,20 @@ export default function PostPage() {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("https://fuggo-374704.uw.r.appspot.com/submitReply", scoreJSON)
+        fetch("http://localhost:3001/submitReply", scoreJSON)
             .then(response => response.json());
+
+        setIsLoading(true);
+
+        wait(2000);
+
         setIsLoading(true);
     }
 
     // Fetching the data JSON variable from the server.
     useEffect(() => {
         if (isLoading) {
-            fetch("https://fuggo-374704.uw.r.appspot.com/pageInfo", scoreJSON)
+            fetch("http://localhost:3001/pageInfo", scoreJSON)
                 .then(response => response.json())
                 .then((
                     result) => {
@@ -57,6 +69,8 @@ export default function PostPage() {
         }
     )
     window.onload = mapReplies();
+    window.onload = insertInlineReplies();
+    window.onload =     insertTopReplies();
 
     function mapReplies() {
         data.numberInlineReplies = []
@@ -240,7 +254,6 @@ export default function PostPage() {
             catch (e){}
         }
     }
-
     function insertTopReplies(){
         let classes = document.getElementsByClassName("inlineReply2");
         // console.log("starting : ")
@@ -262,9 +275,7 @@ export default function PostPage() {
 
 
     }
-
     insertInlineReplies();
-    insertTopReplies();
 
     function formatDate() {
         let timePosted = Date(data.timePosted);
@@ -273,9 +284,20 @@ export default function PostPage() {
     }
     formatDate();
 
+    function LoadAfter5Seconds() {
+        setIsLoading(true);
+    }
+    // LoadAfter5Seconds();
+
+    // React.useEffect() {
+    //     mapReplies();
+    //     insertInlineReplies();
+    //     insertTopReplies();
+    // }
     return (
 
         <div className="postPage" >
+            <button onClick={LoadAfter5Seconds} className="replyLoader">Load Replies!</button>
             <div className="originalPoster" id={"reply"+data.postNumber}><ul className="inlineReply">{data.numberInlineReplies.map((r) => {
                 let lol = "hey"
                 try{lol = document.getElementById("reply"+r).innerText}
@@ -304,5 +326,5 @@ export default function PostPage() {
                 <button onClick={submitReply}>REPLY</button>
             </div>
             </div>
-
+        <div className="footerPostPage"> <a href="/b"> <ImArrowLeft /> </a>    </div>
         </div> )}

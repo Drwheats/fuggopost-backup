@@ -15,7 +15,9 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
         }
         // console.log(scoreJSON)
         //"http://localhost:3001/delete"
-        fetch("https://fuggo-374704.uw.r.appspot.com/delete", scoreJSON)
+        // fetch("https://fuggo-374704.uw.r.appspot.com/delete", scoreJSON)
+        fetch("http://localhost:3001/delete", scoreJSON)
+
             .then(response => response.json());
         document.getElementById("reply"+enemyPostNumber).style.display = "none";
     }
@@ -45,12 +47,7 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
           <span className="replyMinusSign">
                         <FiMinusCircle onClick={hidePost}/>
                     </span>                    <span >{nestedReplies.map((reply) => {
-                // v if we are going to come back to making the top reply list interactive, set id={"inlineReply"+reply} v
-                // let gotem = 0;
-                // try{                        gotem = document.getElementById("reply"+reply).innerText
-                //     console.log(gotem)}
-                // catch (e){
-                //     gotem = e}
+
                 return <a name={"topReply"} className="inlineReply2" href={"/post/" + motherPost + "#reply"+reply} key={reply}>>>{reply}
                 </a>
                 // this.textFloat = document.getElementById("reply"+reply).innerText

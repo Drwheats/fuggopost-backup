@@ -63,7 +63,6 @@ nav li.active {
 
 .submissionForm {
     margin: auto;
-    display: block;
     display: none;
 }
 
@@ -169,7 +168,6 @@ a:link{ text-decoration: none}
     margin-bottom: 10px;
     justify-content: space-between;
     text-align: right;
-    display: inline-block;
     display: none;
 }
 .postButtonHolder{
@@ -208,6 +206,10 @@ a:link{ text-decoration: none}
 
 .enemyPostName {
     margin-left: 20px;
+}
+
+.enemyPostNumber {
+    font-size: 20px;
 }
 
 .enemyPostText {
@@ -302,7 +304,6 @@ button:active {
 }
 
 .inlineReply {
-    font-size: 20px;
     color: darkgreen;
 
 }
@@ -394,7 +395,7 @@ pre{
     color: green;
 }
 
-#reply1 {
+#reply0 {
     color: lightblue;
     background-color: black;
 }
@@ -402,4 +403,27 @@ pre{
 .hideSearch{
     float: left;
     width: 30%;
+}
+
+.leaderboard{
+    margin-bottom: 90px;
+}
+
+.footer{
+    position:fixed;
+    left:0;
+    bottom:10px;
+    height:30px;
+    width:100%;
+
+}
+.footerPostPage{
+    position:fixed;
+    bottom:0;
+    height:30px;
+    width:3%;
+}
+
+.searchIcon {
+    margin: 20px
 }

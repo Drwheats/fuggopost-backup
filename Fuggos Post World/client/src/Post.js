@@ -21,7 +21,7 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         }
 
         console.log(scoreJSON)
-        fetch("https://fuggo-374704.uw.r.appspot.com/delete", scoreJSON)
+        fetch("http://localhost:3001/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+postNumber).style.display = "none";
     }
@@ -47,7 +47,8 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
             <h5 className="postHeader"> <FiMinusCircle onClick={hidePost}/> #{postNumber} {postName}     <span className="trashHolder">{ timePosted }<CgTrash onClick={deletePost}/> </span>       </h5>
 
             <a className="postTopic" id={"reply"+ postNumber} href={"/post/"+postNumber}>{postTopic} </a>
-            <div href={"/post/" + postNumber}>
+            {/*<div href={"/post/" + postNumber}>*/}
+            <div>
 
             <p className="postText" >{postBody}</p>
             </div>

@@ -5,7 +5,7 @@ export default function NavBar() {
 
     return (
         <nav className="nav">
-        <Link to="/home" className="site-title">Fuggo's Post World</Link>
+        <Link to="/home" className="site-title">Fuggo</Link>
             <ul>
             <CustomLink to="/home">Home</CustomLink>
             <CustomLink to="/about">About</CustomLink>

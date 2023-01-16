@@ -18,9 +18,9 @@ import HighScores from "./HighScores";
                   <Routes>
                       <Route path="/" element={ <Home /> } />
                       <Route path="/home" element={ <Home /> } />
-
                       <Route path="/b" element={ <HighScores contentPage={0}/>} />
                       <Route path="/post/:id" element={<PostPage />} />
+                      <Route path="/post/0" element={<Information />} />
                       <Route path="/login" element={ <Login /> } />
                       <Route path="/about" element={ <Information /> } />
                   </Routes>
