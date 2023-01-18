@@ -31,9 +31,9 @@ function addPost(){
 
 }
 let lastPostNumber = Number(readPost());
-
 // for images
 const multer = require('multer')
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images/')
@@ -43,11 +43,13 @@ const storage = multer.diskStorage({
   },
 })
 
-const upload = multer({ storage: storage })
+// const upload = multer({destination: 'images/'})
+
+const upload = multer({storage: storage })
 
 
 app.post('/api/images', upload.single('file'), function (req, res) {
-  console.log(req.originalname)
+  console.log(req.originalName)
   res.json({})
 })
 

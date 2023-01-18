@@ -18,7 +18,8 @@ export default function Login() {
 
             <div className="content">
                 <h1>Coming Soon to Fuggo's Post World Premium®</h1>
-                <p>No worries - you can practice logging in using the console below!</p>
+                <p>Logging in is not currently implemented.</p>
+                   <p>No worries - you can practice logging in using the console below!</p>
                 <br/>
                 <div className="loginButton">
                     <span>

@@ -5,13 +5,12 @@ export default function NavBar() {
 
     return (
         <nav className="nav">
-        <Link to="/home" className="site-title">Fuggo</Link>
+        <Link to="/home" className="site-title">Ben.place</Link>
             <ul>
             <CustomLink to="/home">Home</CustomLink>
             <CustomLink to="/about">About</CustomLink>
             <CustomLink to="/Login">Login</CustomLink>
             {/*<CustomLink to="/scores">HighScores</CustomLink>*/}
-
         </ul>
     </nav> )
 }

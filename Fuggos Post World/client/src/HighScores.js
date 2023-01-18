@@ -14,7 +14,7 @@ export default function HighScores({contentPage}) {
     const [searchContent, setSearchContent] = useState("");
     const [postPage, setPostPage] = useState(contentPage);
     const [renderedPosts, setRenderedPosts] = useState([]);
-    const [image, setImage] = useState({preview: '', imageData: ''})
+    const [image, setImage] = useState({ preview: '', data: '' });
     const [status, setStatus] = useState('')
     // Here, we get the list of posts from the server based on what page the user is on.
     useEffect(() => {
@@ -182,20 +182,20 @@ export default function HighScores({contentPage}) {
 
     // everything image related here:
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        let formData = new FormData();
-        formData.append('file', image.imageData)
+        e.preventDefault()
+        let formData = new FormData()
+        formData.append('file', image.data)
         const response = await fetch('http://localhost:3001/api/images', {
             method: 'POST',
             body: formData,
         })
-        if (response) console.log(response.statusText)
+        if (response) setStatus(response.statusText)
     }
 
-    const handleImageToUpload = (e) => {
+    const handleFileChange = (e) => {
         const img = {
             preview: URL.createObjectURL(e.target.files[0]),
-            image: e.target.files[0],
+            data: e.target.files[0],
         }
         setImage(img)
     }
@@ -231,21 +231,19 @@ export default function HighScores({contentPage}) {
                     <br/>
                     <textarea placeholder="Post" onChange={changeInputPostBody} className="mainTextSubmit"/>
 
-
-                    <br/>
-                    <button onClick={submitScore}>SUBMIT</button>
-                </div>
-            </div>
-            <span className="fileUploadHolder">
-      <h1>Upload to server</h1>
+                    <span className="fileUploadHolder">
                 {image.preview && <img src={image.preview} width='100' height='100' />}
-                <hr></hr>
+                        <hr></hr>
       <form onSubmit={handleSubmit}>
-        <input type='file' name='file' onChange={handleImageToUpload}></input>
+        <input type='file' name='file' onChange={handleFileChange}></input>
         <button type='submit'>Submit</button>
       </form>
-                {status && <h4>{status}</h4>}
                     </span>
+                    <br/>
+                    <button onClick={submitScore}>Post</button>
+                </div>
+            </div>
+
     <div className="leaderboard" id="leaderboard">
          <div className='posts' id='posts'><PostMap posters={allPosts.slice(postPage*10, postPage *10 +9)}  className="postMap"/>
          </div>
