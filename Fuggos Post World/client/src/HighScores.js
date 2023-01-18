@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import PostMap from "./PostMap";
 import { ImSearch, ImZoomOut, ImArrowLeft, ImArrowRight } from "react-icons/im"
+import axios, {isCancel, AxiosError} from 'axios';
 
 export default function HighScores({contentPage}) {
     const [data, setData] = useState(true);
@@ -13,7 +14,8 @@ export default function HighScores({contentPage}) {
     const [searchContent, setSearchContent] = useState("");
     const [postPage, setPostPage] = useState(contentPage);
     const [renderedPosts, setRenderedPosts] = useState([]);
-    const [file, setFile] = useState()
+    const [image, setImage] = useState({preview: '', imageData: ''})
+    const [status, setStatus] = useState('')
     // Here, we get the list of posts from the server based on what page the user is on.
     useEffect(() => {
             if (data) {
@@ -31,9 +33,8 @@ export default function HighScores({contentPage}) {
                 .then(
                     (result) => {
                         // console.log('successfully fetched data.')
-                        let headerPost = {postBody: "Welcome to /b/! This forum has no topic. Post away! ", postName: "Fuggo", postTopic: "/b/", postNumber: 0, postVisibility: true, postReplies: [], timePosted: "2021"}
+                        let headerPost = {postBody: "Welcome to /b/! This forum has no topic. Post away! ", postName: "Fuggo", postTopic: "/b/", postNumber: 0, postVisibility: true, postReplies: [], timePosted: "2004"}
                             result.unshift(headerPost);
-                        console.log(result)
                         setAllPosts(result);
                         setData(false);
                         let tempPosts = allPosts.slice(postPage*10, postPage *10 +9)
@@ -135,7 +136,6 @@ export default function HighScores({contentPage}) {
             lements[0].parentNode.removeChild(lements[0]);
         }
         }
-
     function pageBack() {
         if (postPage > 0) {
             let postChange = postPage - 1;
@@ -155,22 +155,17 @@ export default function HighScores({contentPage}) {
         console.log(renderedPosts)
 
     }
-
     function showSearch() {
         document.getElementById("searchBar").style.display = "inline-block"
         document.getElementById("searchButtonHolder").style.display = "none"
 
     }
-
     function hideSearch() {
         document.getElementById("searchBar").style.display = "none"
         document.getElementById("searchButtonHolder").style.display = "inline-block"
 
     }
-
-
     function showPost() {
-        // document.getElementById("submissionForm").style.position = "relative"
         document.getElementById("submissionForm").style.display = 'inline-block';
 
 
@@ -178,7 +173,6 @@ export default function HighScores({contentPage}) {
 
     }
     function hidePost() {
-        // document.getElementById("submissionForm").style.position = "relative"
         document.getElementById("submissionForm").style.display = 'none';
 
 
@@ -186,6 +180,25 @@ export default function HighScores({contentPage}) {
 
     }
 
+    // everything image related here:
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        formData.append('file', image.imageData)
+        const response = await fetch('http://localhost:3001/api/images', {
+            method: 'POST',
+            body: formData,
+        })
+        if (response) console.log(response.statusText)
+    }
+
+    const handleImageToUpload = (e) => {
+        const img = {
+            preview: URL.createObjectURL(e.target.files[0]),
+            image: e.target.files[0],
+        }
+        setImage(img)
+    }
 
 
     return (
@@ -213,24 +226,26 @@ export default function HighScores({contentPage}) {
                     > <button onClick={showPost}>POST</button></div>
 
                 <div className="submissionForm" id="submissionForm">
-
                     <label>Name</label><input onChange={changeInputNameValue} placeholder="Anonymous" type="text" className="nameTextSubmit"/>
                     <label>Topic</label><input placeholder="Topic" type="text" onChange={changeInputTopicValue} className="topicTextSubmit"/><button onClick={hidePost}>Hide</button>
                     <br/>
                     <textarea placeholder="Post" onChange={changeInputPostBody} className="mainTextSubmit"/>
-                    <span className="fileUploadHolder">
-                                          <input
-                                              // filename={file}
-                                              // onChange={e => setFile(e.target.files[0])}
-                                              type="file"
-                                              accept="image/*"
-                                          ></input>
-                    </span>
+
 
                     <br/>
                     <button onClick={submitScore}>SUBMIT</button>
                 </div>
             </div>
+            <span className="fileUploadHolder">
+      <h1>Upload to server</h1>
+                {image.preview && <img src={image.preview} width='100' height='100' />}
+                <hr></hr>
+      <form onSubmit={handleSubmit}>
+        <input type='file' name='file' onChange={handleImageToUpload}></input>
+        <button type='submit'>Submit</button>
+      </form>
+                {status && <h4>{status}</h4>}
+                    </span>
     <div className="leaderboard" id="leaderboard">
          <div className='posts' id='posts'><PostMap posters={allPosts.slice(postPage*10, postPage *10 +9)}  className="postMap"/>
          </div>

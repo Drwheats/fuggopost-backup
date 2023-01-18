@@ -248,16 +248,12 @@ export default function PostPage() {
     }
     formatDate();
 
-    function LoadAfter5Seconds() {
-        setIsLoading(true);
-    }
     useEffect(() => {
         setIsLoading(false);
         }
     )
     return (
         <div className="postPage" >
-            <button onClick={LoadAfter5Seconds} className="replyLoader">Load Replies!</button>
             <div className="originalPoster" id={"reply"+data.postNumber}><ul className="inlineReply">{data.numberInlineReplies.map((r) => {
                 let lol = "hey"
                 try{lol = document.getElementById("reply"+r).innerText}

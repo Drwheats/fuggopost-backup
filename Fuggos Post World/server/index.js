@@ -1,12 +1,15 @@
 const express = require("express");
 const cors = require('cors');
-// const PORT = process.env.PORT || 4000;
+const fileUpload = require('express-fileupload');
 const bodyParser = require("body-parser");
 const fs = require("fs");
+
 const pathToJSON = './highscores.json'
-const app = express();
 const highScores = require(pathToJSON);
-const pathToImages = './server/images/Trollface_non-free.png.webp'
+
+// const PORT = process.env.PORT || 4000;
+const app = express();
+const pathToImages = './server/public/Trollface_non-free.png.webp'
 const pathToLastPostNumber = './postNumber.txt'
 
 // rate limiter.
@@ -15,7 +18,7 @@ const pathToLastPostNumber = './postNumber.txt'
 app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//
+// helper functions. when i get off my ass writePost() will be here too.
 function readPost(){
   let lastPost = fs.readFileSync(pathToLastPostNumber);
   lastPost = lastPost.toString();
@@ -28,7 +31,26 @@ function addPost(){
 
 }
 let lastPostNumber = Number(readPost());
-// receive the highscores from the server
+
+// for images
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  },
+})
+
+const upload = multer({ storage: storage })
+
+
+app.post('/api/images', upload.single('file'), function (req, res) {
+  console.log(req.originalname)
+  res.json({})
+})
+
 
 app.post("/api", (req, res) => {
   let meme = req.body;
@@ -36,10 +58,6 @@ app.post("/api", (req, res) => {
   res.json(highScores);
   });
 
-app.get("/images", (req, res) => {
-  let imageToSend = pathToImages
-  res.sendFile(imageToSend)
-})
 
 // request the main page of topics from the server
 app.post("/postNumber/", (req, res) => {

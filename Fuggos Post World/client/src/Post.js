@@ -2,7 +2,7 @@ import { CgTrash } from "react-icons/cg";
 import {FiMinusCircle} from "react-icons/fi";
 
 
-export default function Post({postName, postTopic, postBody, postNumber, postVisibility, postNumberReplies, timePosted}) {
+export default function Post({postName, postTopic, postBody, postNumber, postVisibility, postNumberReplies, timePosted, replies}) {
 
     function formatDate() {
         let currentTime = new Date(timePosted)
@@ -38,6 +38,10 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         // document.getElementById("reply"+postNumber).parentElement.append(plusSign)
         document.getElementById("reply"+postNumber).parentNode.insertBefore(plusSign, document.getElementById("reply"+postNumber).nextSibling);
     }
+    function trimReplies() {
+        let random = replies.sort(() => .5 - Math.random()).slice(0,3)
+        return random;
+    }
 
     formatDate();
     return (
@@ -52,8 +56,18 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
 
             <p className="postText" >{postBody}</p>
             </div>
-            <a href={"/post/" + postNumber} className="postFooter"
-                ><h5 className="replies">Replies: {postNumberReplies} <span className="replyNow">Reply Now</span></h5></a>
-        </div>
+
+
+            <div className="floatingReplies">{
+
+                trimReplies().map((r) => {
+                    return <a href={"/post/"+postNumber}>{r.replyName + ": " + r.replyBody + " "}</a>
+                })
+            }
+            </div>
+
+                <a href={"/post/" + postNumber} className="postFooter"
+                ><h5 className="replies">Replies: {postNumberReplies} <span className="replyNow">Reply Now</span></h5></a></div>
+
 )
 }
