@@ -68,7 +68,6 @@ app.post('/pageInfo', function (req, res) {
   checkPost = Number(checkPost);
   for (let i = 0; i < highScores.length; i++) {
     if (highScores[i].postNumber === checkPost) {
-      // console.log("success")
       res.json(highScores[i]);
     }
   }

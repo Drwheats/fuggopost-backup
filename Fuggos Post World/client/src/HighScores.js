@@ -192,7 +192,6 @@ export default function HighScores({contentPage}) {
         })
         if (response) setStatus(response.statusText)
     }
-
     const handleFileChange = (e) => {
         const img = {
             preview: URL.createObjectURL(e.target.files[0]),
@@ -200,7 +199,6 @@ export default function HighScores({contentPage}) {
         }
         setImage(img)
     }
-
     function getImage() {
         setData(false);
         let json_body = JSON.stringify(
@@ -235,7 +233,6 @@ export default function HighScores({contentPage}) {
                     <ImZoomOut className="hideSearch" size={20} onClick={hideSearch}>HIDE</ImZoomOut>
 
                 </div>
-                <button onClick={getImage}>GET</button>
 
                 <div className="postButtonHolder" id="postButtonHolder"
                     > <button onClick={showPost}>POST</button></div>
@@ -244,7 +241,7 @@ export default function HighScores({contentPage}) {
                     <label>Name</label><input onChange={changeInputNameValue} placeholder="Anonymous" type="text" className="nameTextSubmit"/>
                     <label>Topic</label><input placeholder="Topic" type="text" onChange={changeInputTopicValue} className="topicTextSubmit"/><button onClick={hidePost}>Hide</button>
                     <br/>
-                    <textarea placeholder="Post" onChange={changeInputPostBody} className="mainTextSubmit"/>
+                    <textarea placeholder="Post (max characters: 3000)" onChange={changeInputPostBody} className="mainTextSubmit"/>
 
                     <span className="fileUploadHolder">
                 {image.preview && <img src={image.preview} width='100' height='100' />}

@@ -49,10 +49,7 @@ export default function PostPage() {
         }
         fetch("http://localhost:3001/submitReply", scoreJSON)
             .then(response => response.json());
-
         setIsLoading(true);
-
-        wait(2000);
         handleSubmit();
         setIsLoading(true);
     }

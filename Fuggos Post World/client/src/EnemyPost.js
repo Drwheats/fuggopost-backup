@@ -12,11 +12,7 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        // console.log(scoreJSON)
-        //"http://localhost:3001/delete"
-        // fetch("https://fuggo-374704.uw.r.appspot.com/delete", scoreJSON)
         fetch("http://localhost:3001/delete", scoreJSON)
-
             .then(response => response.json());
         document.getElementById("reply"+enemyPostNumber).style.display = "none";
     }
