@@ -81,8 +81,6 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
 
 
                 <span className="enemyPostText" id={"enemyPostText"+enemyPostNumber}></span>
-
-
         </div>
 )
 }
