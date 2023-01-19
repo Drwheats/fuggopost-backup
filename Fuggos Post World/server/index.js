@@ -9,7 +9,6 @@ const highScores = require(pathToJSON);
 
 // const PORT = process.env.PORT || 4000;
 const app = express();
-const pathToImages = './server/public/Trollface_non-free.png.webp'
 const pathToLastPostNumber = './postNumber.txt'
 
 // rate limiter.
@@ -39,26 +38,17 @@ const storage = multer.diskStorage({
     cb(null, 'images/')
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname)
+    cb(null, String(lastPostNumber) + ".png")
   },
 })
-
-// const upload = multer({destination: 'images/'})
-
 const upload = multer({storage: storage })
 
+app.use('/fuggosimageworld', express.static('images'))
 
 app.post('/api/images', upload.single('file'), function (req, res) {
   console.log(req.originalName)
   res.json({})
 })
-
-
-app.post("/api", (req, res) => {
-  let meme = req.body;
-    console.log(meme);
-  res.json(highScores);
-  });
 
 
 // request the main page of topics from the server
@@ -142,7 +132,7 @@ app.post('/submit', function (req, res) {
         console.log('Error', err)
       } else {
         console.log('Post has been logged.')
-        res.send("Post has been Logged!")
+        res.send(newScore.postNumber.toString())
 
       }
 

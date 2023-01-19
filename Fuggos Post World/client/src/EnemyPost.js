@@ -1,10 +1,9 @@
 import {CgTrash} from "react-icons/cg";
 import {FiMinusCircle} from "react-icons/fi";
+import {useState} from "react";
 
 export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber, motherPost, nestedReplies, timePosted}) {
-    // console.log("nestedReplies Prop for " + enemyPostNumber + " is: " + nestedReplies)
-    // const [data, setData] = useState('')
-
+    const [fullRes, setFullRes] = useState()
     function deletePost(){
         let json_body = JSON.stringify(
             { postName: enemyPostBody, postNumber: enemyPostNumber, motherPost: motherPost, isReply: true, nestedReplies: nestedReplies})
@@ -21,7 +20,6 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
             .then(response => response.json());
         document.getElementById("reply"+enemyPostNumber).style.display = "none";
     }
-
     function hidePost(){
         let plusSign = document.createElement('span')
         plusSign.innerHTML = "+";
@@ -34,13 +32,29 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
         // document.getElementById("reply"+postNumber).parentElement.append(plusSign)
         document.getElementById("reply"+enemyPostNumber).parentNode.insertBefore(plusSign, document.getElementById("reply"+enemyPostNumber).nextSibling);
     }
-
     function formatDate() {
         let currentTime = new Date(timePosted)
         timePosted =String(currentTime)
         timePosted = timePosted.split(' ').slice(0, 5).join(' ')
         return timePosted
     }
+    function clickReply() {
+        document.getElementById("mainTextSubmit").value += "@" + enemyPostNumber + ">"
+    }
+    function showFullRes() {
+        if (!fullRes){
+            document.getElementById("enemyPostImage"+enemyPostNumber).style.maxHeight = "100%"
+            document.getElementById("enemyPostImage"+enemyPostNumber).style.maxWidth = "100%"
+            setFullRes(true);
+        }
+        else {
+            document.getElementById("enemyPostImage"+enemyPostNumber).style.maxHeight = "100px"
+            document.getElementById("enemyPostImage"+enemyPostNumber).style.maxWidth = "100px"
+            setFullRes(false)
+        }
+    }
+
+
     return (
         <div className="enemyPostHolder" datatype={enemyPostBody} id={"reply"+enemyPostNumber}>
             <div className="replyHeaderHolder">
@@ -60,9 +74,12 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
                     </span>
             </div>
                 <div className="enemyPostHeader">
-                    <h6 className="enemyPostNumber">#{enemyPostNumber}</h6><h5 className="enemyPostName">name: {enemyPostName}
-                </h5> <h5 className="enemyTimeStamp">{formatDate()}</h5>
+                    <a href="#mainTextSubmit" onClick={clickReply} className="enemyPostNumber">#{enemyPostNumber}</a><h5 className="enemyPostName">name: {enemyPostName}
+                </h5> <h5 className="enemyTimeStamp">{formatDate()}</h5>                    <img alt="" onClick={showFullRes} className="enemyPostImage" id={"enemyPostImage"+enemyPostNumber} src={"http://localhost:3001/fuggosimageworld/"+enemyPostNumber+".png"} />
+
                 </div>
+
+
                 <span className="enemyPostText" id={"enemyPostText"+enemyPostNumber}></span>
 
 

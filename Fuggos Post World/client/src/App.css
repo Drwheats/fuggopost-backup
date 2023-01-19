@@ -142,6 +142,8 @@ a:link{ text-decoration: none}
 
 /* Add some padding inside the card container */
 .postTopic {
+    display: flex;
+    flex-direction: column;
     float: left;
     font-size: 20px;
     font-weight: bold;
@@ -180,22 +182,20 @@ a:link{ text-decoration: none}
 
 
 .enemyPostHolder {
-
-    justify-self: auto;
     box-shadow: 10px 5px 5px darkslategrey;
     margin-top: 5px;
     margin-bottom: 5px;
     max-width: 95%;
-    justify-content: space-between;
+
+
     width: fit-content;
-    border-style: solid;
+    border-style: ridge;
     border-width: 2px;
     margin-left: 20px;
     padding: 10px;
-    max-height: fit-content;
+    /*max-height: fit-content;*/
     background-color: lightblue;
 }
-
 .enemyPostHeader {
     width: fit-content;
     height: 10%;
@@ -205,20 +205,16 @@ a:link{ text-decoration: none}
     text-align: left;
     font-size: 14px;
 }
-
 .enemyPostName {
     margin-left: 20px;
 }
-
 .enemyPostNumber {
-    font-size: 20px;
+    height: fit-content;
+    font-size: 16px;
 }
-
 .enemyPostText {
-    padding: 5px;
     text-align: left;
     font-size: 14px;
-    height: 100px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: inherit;
@@ -231,22 +227,24 @@ a:link{ text-decoration: none}
     margin-left: 10px;
     text-align: left;
     margin-top: 20px;
-    width: 60%;
-    padding: 10px;
-    height: 10%;
+    width: fit-content;
     background-color: grey;
+    min-height: 185px;
+    height: fit-content;
 }
 
 .originalPosterHeader {
-    flex-wrap: wrap;
-    height: 10%;
     display: flex;
-    text-align: left;
     font-size: 14px;
 }
 
 .originalPosterName {
     margin-left: 20px;
+}
+
+.originalPosterNumber {
+    font-size: 20px;
+
 }
 
 .submissionFormReply {
@@ -301,7 +299,7 @@ button:active {
 }
 
 .replyMinusSign {
-
+    padding-right: 35px;
 }
 
 .replyTrashSign {
@@ -309,8 +307,14 @@ button:active {
     margin-left: auto;
 }
 
+
+
 .inlineReply {
+
+    margin: auto;
+    height: fit-content;
     color: darkgreen;
+
 
 }
 
@@ -330,7 +334,6 @@ button:active {
 }
 
 .inlineReply2 {
-    font-size: 20px;
     color: darkgreen;
 
 }
@@ -341,32 +344,24 @@ button:active {
     background-color: #eee;
     z-index: 10;
     content: attr(textFloat);
-
 }
-
-
 .inlineReply2:hover:after {
     border-style: solid;
     border-color: black;
-
     display: contents;
 }
 
 .inlineReply3 {
     font-size: 20px;
     color: darkgreen;
-
 }
 
 .inlineReply3:after {
     display: none;
     position: absolute;
-
     background-color: #eee;
     z-index: 10;
     content: attr(textFloat);
-
-    /*content: attr(textContent);*/
 }
 
 
@@ -436,16 +431,60 @@ pre{
 }
 
 .floatingReplies {
-    padding: 5px;
-    margin: auto;
-    width: 100%;
-    float: left;
-justify-content: space-between;
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.floatingReply {
+    padding: 5px;
+    margin: 5px;
+    width: fit-content;
     background-color: lightgreen;
     max-height: 65px;
     overflow: hidden;
+
+    float: left;
+}
+
+pre{
+    white-space: normal;
+    margin: auto;
+}
+
+.postButton {
+    background-color: green;
+}
+
+.postImage {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+/*img[alt]:after {*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: #fff;*/
+/*    font-family: 'Helvetica';*/
+/*    font-weight: 300;*/
+/*    line-height: 2;*/
+/*    text-align: center;*/
+/*    content: attr(alt);*/
+/*}*/
+
+.originalPostImage {
+    max-height: 100px;
+    max-width: 100px;
+
+}
+.enemyPostImage {
+    float: left;
+
+    max-height: 100px;
+    max-width: 100px;
 
 }

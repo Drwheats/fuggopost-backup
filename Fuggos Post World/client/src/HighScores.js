@@ -39,7 +39,8 @@ export default function HighScores({contentPage}) {
                         setData(false);
                         let tempPosts = allPosts.slice(postPage*10, postPage *10 +9)
                         setRenderedPosts(tempPosts);}
-                )}
+                )
+            }
 
     }, [data, allPosts])
     const changeInputNameValue = (event) => {
@@ -113,8 +114,9 @@ export default function HighScores({contentPage}) {
         fetch("http://localhost:3001/submit", scoreJSON)
             .then(response => response.json());
         setData(true);
-
+        handleSubmit()
         setData(true);
+        hidePost();
     }
     function clearFilters() {
         let tempPosts = allPosts;
@@ -181,8 +183,7 @@ export default function HighScores({contentPage}) {
     }
 
     // everything image related here:
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
         let formData = new FormData()
         formData.append('file', image.data)
         const response = await fetch('http://localhost:3001/api/images', {
@@ -200,6 +201,19 @@ export default function HighScores({contentPage}) {
         setImage(img)
     }
 
+    function getImage() {
+        setData(false);
+        let json_body = JSON.stringify(
+            { postName: nameToSubmit, postTopic: topic, postBody: postBody, postVisibility: true})
+        const scoreJSON = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: json_body
+        }
+        fetch("http://localhost:3001/submit", scoreJSON)
+            .then(response => response.json());
+        setData(true);
+    }
 
     return (
         <div className="mainPostPage">
@@ -221,6 +235,7 @@ export default function HighScores({contentPage}) {
                     <ImZoomOut className="hideSearch" size={20} onClick={hideSearch}>HIDE</ImZoomOut>
 
                 </div>
+                <button onClick={getImage}>GET</button>
 
                 <div className="postButtonHolder" id="postButtonHolder"
                     > <button onClick={showPost}>POST</button></div>
@@ -236,11 +251,10 @@ export default function HighScores({contentPage}) {
                         <hr></hr>
       <form onSubmit={handleSubmit}>
         <input type='file' name='file' onChange={handleFileChange}></input>
-        <button type='submit'>Submit</button>
       </form>
                     </span>
                     <br/>
-                    <button onClick={submitScore}>Post</button>
+                    <button className="postButton" onClick={submitScore}>Post</button>
                 </div>
             </div>
 

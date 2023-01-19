@@ -1,8 +1,11 @@
 import { CgTrash } from "react-icons/cg";
 import {FiMinusCircle} from "react-icons/fi";
+import theScream from './public/theScream.png'
+import {useState} from "react";
 
 
 export default function Post({postName, postTopic, postBody, postNumber, postVisibility, postNumberReplies, timePosted, replies}) {
+    const [fullRes, setFullRes] = useState();
 
     function formatDate() {
         let currentTime = new Date(timePosted)
@@ -42,15 +45,26 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         let random = replies.sort(() => .5 - Math.random()).slice(0,3)
         return random;
     }
-
+    function showFullRes() {
+        if (!fullRes){
+            document.getElementById("postImage"+postNumber).style.maxHeight = "100%"
+            document.getElementById("postImage"+postNumber).style.maxWidth = "100%"
+            setFullRes(true);
+        }
+        else {
+            document.getElementById("postImage"+postNumber).style.maxHeight = "100px"
+            document.getElementById("postImage"+postNumber).style.maxWidth = "100px"
+            setFullRes(false)
+        }
+    }
     formatDate();
     return (
 
         <div className="postHolder" id={"reply"+ postNumber}>
-        {/*<img src="img_avatar.png" alt="Avatar" style="width:100%">*/}
             <h5 className="postHeader"> <FiMinusCircle onClick={hidePost}/> #{postNumber} {postName}     <span className="trashHolder">{ timePosted }<CgTrash onClick={deletePost}/> </span>       </h5>
 
-            <a className="postTopic" id={"reply"+ postNumber} href={"/post/"+postNumber}>{postTopic} </a>
+            <h0 className="postTopic" id={"reply"+ postNumber} href={"/post/"+postNumber}> <a href={"/post/"+postNumber} >{postTopic} </a>           <img alt="" onClick={showFullRes} id={"postImage"+postNumber} className="postImage" src={"http://localhost:3001/fuggosimageworld/"+postNumber+".png"} />
+            </h0>
             {/*<div href={"/post/" + postNumber}>*/}
             <div>
 
@@ -61,13 +75,9 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
             <div className="floatingReplies">{
 
                 trimReplies().map((r) => {
-                    return <a href={"/post/"+postNumber}>{r.replyName + ": " + r.replyBody + " "}</a>
+                    return <a className="floatingReply" href={"/post/"+postNumber+"#reply"+r.postNumber}>{r.replyName + ": " + r.replyBody + " "}</a>
                 })
             }
             </div>
-
                 <a href={"/post/" + postNumber} className="postFooter"
-                ><h5 className="replies">Replies: {postNumberReplies} <span className="replyNow">Reply Now</span></h5></a></div>
-
-)
-}
+                ><h5 className="replies">{postNumberReplies} replies <span className="replyNow">View Thread</span></h5></a></div>)}

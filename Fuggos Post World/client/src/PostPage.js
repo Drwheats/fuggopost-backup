@@ -3,9 +3,10 @@ import {useState} from "react";
 import EnemyPost from "./EnemyPost";
 import {ImArrowLeft} from "react-icons/im"
 import {render} from "@testing-library/react";
+import theScream from "./public/theScream.png";
 
 export default function PostPage() {
-
+    const [fullRes, setFullRes] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState({postName: "", postTopic: "", postBody: "", postNumber: 0, postVisibility: true, postReplies: [], numberInlineReplies: [], timePosted: ""});
     // const [inlineReplies, setInlineReplies] = useState();
@@ -13,6 +14,8 @@ export default function PostPage() {
     const [clientReplyName, setClientReplyName] = useState("anonymous");
     let pageLoc = window.location.pathname.split('/')[2];
     let json_body = JSON.stringify({ pageLoc })
+    const [image, setImage] = useState({ preview: '', data: '' });
+    const [status, setStatus] = useState('')
 
     function wait(ms){
         let start = new Date().getTime();
@@ -50,7 +53,7 @@ export default function PostPage() {
         setIsLoading(true);
 
         wait(2000);
-
+        handleSubmit();
         setIsLoading(true);
     }
 
@@ -252,6 +255,40 @@ export default function PostPage() {
         setIsLoading(false);
         }
     )
+    function clickReply() {
+        document.getElementById("mainTextSubmit").value += "@" + data.postNumber + ">"
+    }
+    const handleFileChange = (e) => {
+        const img = {
+            preview: URL.createObjectURL(e.target.files[0]),
+            data: e.target.files[0],
+        }
+        setImage(img)
+    }
+
+    const handleSubmit = async () => {
+        let formData = new FormData()
+        formData.append('file', image.data)
+        const response = await fetch('http://localhost:3001/api/images', {
+            method: 'POST',
+            body: formData,
+        })
+        if (response) setStatus(response.statusText)
+    }
+
+    function showFullRes() {
+        if (!fullRes){
+            document.getElementById("originalPostImage"+pageLoc).style.maxHeight = "100%"
+            document.getElementById("originalPostImage"+pageLoc).style.maxWidth = "100%"
+            setFullRes(true);
+        }
+        else {
+            document.getElementById("originalPostImage"+pageLoc).style.maxHeight = "100px"
+            document.getElementById("originalPostImage"+pageLoc).style.maxWidth = "100px"
+            setFullRes(false)
+        }
+    }
+
     return (
         <div className="postPage" >
             <div className="originalPoster" id={"reply"+data.postNumber}><ul className="inlineReply">{data.numberInlineReplies.map((r) => {
@@ -260,8 +297,10 @@ export default function PostPage() {
                 catch (e){};
                 return <a className="inlineReply3" href={"/post/" + data.postNumber + "#reply"+r} textfloat={lol} key={r}>>>{r}  </a>
             })} </ul>
-                <h2 className="postTopic">{data.postTopic}</h2>
-                <div className="originalPosterHeader" id="originalPosterHeader"><h3 className="OriginalPosterNumber">#{data.postNumber}</h3><h3 className="originalPosterName">{data.postName}</h3>
+
+                <h2 className="postTopic">{data.postTopic}<img alt="" onClick={showFullRes} className="originalPostImage" id={"originalPostImage"+pageLoc} src={"http://localhost:3001/fuggosimageworld/"+data.postNumber+".png"} /></h2>
+
+                <div className="originalPosterHeader" id="originalPosterHeader"><a className="originalPosterNumber" onClick={clickReply} href="#mainTextSubmit" >#{data.postNumber}</a><h3 className="originalPosterName">{data.postName}</h3>
                     <h3 className="timeStampOP">{formatDate()}</h3>
                 </div>
             <p className="postText">{data.postBody}</p>
@@ -277,9 +316,16 @@ export default function PostPage() {
                 <label>Name</label><input onChange={changeInputNameValue} type="text" className="nameTextSubmit"/>
 
                 <br/>
-                <textarea onChange={changeInputPostBody} className="mainTextSubmit"/>
+                <textarea onChange={changeInputPostBody} id="mainTextSubmit" className="mainTextSubmit"/>
                 <br/>
                 <button onClick={submitReply}>REPLY</button>
+                <span className="fileUploadHolder">
+                {image.preview && <img src={image.preview} width='100' height='100' />}
+                    <hr></hr>
+      <form onSubmit={handleSubmit}>
+        <input type='file' name='file' onChange={handleFileChange}></input>
+      </form>
+                    </span>
             </div>
             </div>
         <div className="footerPostPage"> <a href="/b"> <ImArrowLeft /> </a>    </div>
