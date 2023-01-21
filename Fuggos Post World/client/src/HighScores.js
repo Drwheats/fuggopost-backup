@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import PostMap from "./PostMap";
 import { ImSearch, ImZoomOut, ImArrowLeft, ImArrowRight } from "react-icons/im"
-import axios, {isCancel, AxiosError} from 'axios';
 
 export default function HighScores({contentPage}) {
     const [data, setData] = useState(true);
@@ -28,7 +27,7 @@ export default function HighScores({contentPage}) {
                         'Content-Type': 'application/json' },
                     body: json_body
                 }
-                fetch("http://localhost:3001/postNumber", scoreJSON)
+                fetch("http://34.170.66.126:4000/postNumber", scoreJSON)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -42,7 +41,7 @@ export default function HighScores({contentPage}) {
                 )
             }
 
-    }, [data, allPosts])
+    }, [data, allPosts, postPage])
     const changeInputNameValue = (event) => {
         setNameToSubmit(event.target.value);
     }
@@ -111,7 +110,7 @@ export default function HighScores({contentPage}) {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("http://localhost:3001/submit", scoreJSON)
+        fetch("http://34.170.66.126:4000/submit", scoreJSON)
             .then(response => response.json());
         setData(true);
         handleSubmit()
@@ -186,7 +185,7 @@ export default function HighScores({contentPage}) {
     const handleSubmit = async () => {
         let formData = new FormData()
         formData.append('file', image.data)
-        const response = await fetch('http://localhost:3001/api/images', {
+        const response = await fetch('http://34.170.66.126:4000/api/images', {
             method: 'POST',
             body: formData,
         })
@@ -199,25 +198,12 @@ export default function HighScores({contentPage}) {
         }
         setImage(img)
     }
-    function getImage() {
-        setData(false);
-        let json_body = JSON.stringify(
-            { postName: nameToSubmit, postTopic: topic, postBody: postBody, postVisibility: true})
-        const scoreJSON = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: json_body
-        }
-        fetch("http://localhost:3001/submit", scoreJSON)
-            .then(response => response.json());
-        setData(true);
-    }
 
     return (
         <div className="mainPostPage">
             <div className="toolContainer">
                 <div className="searchButtonHolder" id="searchButtonHolder"
-                > <ImSearch className="searchIcon" size={20} onClick={showSearch}>SEARCH</ImSearch></div>
+                > <ImSearch className="searchIcon" size={20} onClick={showSearch}></ImSearch></div>
                 <div className="searchBar" id="searchBar">
                 <h3>Find Posts</h3>
                 <div>
@@ -231,7 +217,6 @@ export default function HighScores({contentPage}) {
                 </div>
                 <button className="clearButton" onClick={clearFilters}>CLEAR ALL FILTERS</button>
                     <ImZoomOut className="hideSearch" size={20} onClick={hideSearch}>HIDE</ImZoomOut>
-
                 </div>
 
                 <div className="postButtonHolder" id="postButtonHolder"
@@ -244,20 +229,19 @@ export default function HighScores({contentPage}) {
                     <textarea placeholder="Post (max characters: 3000)" onChange={changeInputPostBody} className="mainTextSubmit"/>
 
                     <span className="fileUploadHolder">
-                {image.preview && <img src={image.preview} width='100' height='100' />}
+                {image.preview && <img alt="" src={image.preview} width='100' height='100' />}
                         <hr></hr>
       <form onSubmit={handleSubmit}>
-        <input type='file' name='file' onChange={handleFileChange}></input>
+        <input type='file' alt="" name='file' onChange={handleFileChange}></input>
       </form>
                     </span>
                     <br/>
                     <button className="postButton" onClick={submitScore}>Post</button>
                 </div>
             </div>
-
     <div className="leaderboard" id="leaderboard">
          <div className='posts' id='posts'><PostMap posters={allPosts.slice(postPage*10, postPage *10 +9)}  className="postMap"/>
          </div>
         </div>
-    <div className="footer" id="footer"> <ImArrowLeft color={"darkslategrey"} size={30} onClick={pageBack} className="backwardButton">BACK</ImArrowLeft> Now Browsing Page : {postPage + 1}<ImArrowRight color={"darkslategrey"} size={30} onClick={pageForward} className="forwardButton">FORWARD</ImArrowRight></div>
+            <div className="footer" id="footer"> <span className="backwardButton"> <ImArrowLeft size={30} onClick={pageBack} className="backwardButton" /> </span>Now Browsing Page : {postPage + 1} <span className="backwardButton"> <ImArrowRight size={30} onClick={pageForward} className="forwardButton"/> </span></div>
         </div> )}

@@ -1,5 +1,5 @@
 import { CgTrash } from "react-icons/cg";
-import {FiMinusCircle} from "react-icons/fi";
+import {FiMinusSquare, FiPlusSquare, FiXSquare} from "react-icons/fi";
 import theScream from './public/theScream.png'
 import {useState} from "react";
 
@@ -24,7 +24,7 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
         }
 
         console.log(scoreJSON)
-        fetch("http://localhost:3001/delete", scoreJSON)
+        fetch("http://34.170.66.126:4000/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+postNumber).style.display = "none";
     }
@@ -61,9 +61,9 @@ export default function Post({postName, postTopic, postBody, postNumber, postVis
     return (
 
         <div className="postHolder" id={"reply"+ postNumber}>
-            <h5 className="postHeader"> <FiMinusCircle onClick={hidePost}/> #{postNumber} {postName}     <span className="trashHolder">{ timePosted }<CgTrash onClick={deletePost}/> </span>       </h5>
+            <h5 className="postHeader"> #{postNumber} {postName}     <span className="trashHolder">{ timePosted } </span> <span className="minusIconHolder"><FiMinusSquare size={16} onClick={hidePost} /></span> <span className="plusIconHolder"><FiPlusSquare onClick={showFullRes} size={16}/> </span> <span className="xIconHolder"><FiXSquare size={16} onClick={deletePost}/>  </span>    </h5>
 
-            <h0 className="postTopic" id={"reply"+ postNumber} href={"/post/"+postNumber}> <a href={"/post/"+postNumber} >{postTopic} </a>           <img alt="" onClick={showFullRes} id={"postImage"+postNumber} className="postImage" src={"http://localhost:3001/fuggosimageworld/"+postNumber+".png"} />
+            <h0 className="postTopic" id={"reply"+ postNumber} href={"/post/"+postNumber}> <a href={"/post/"+postNumber} >{postTopic} </a>           <img alt="" onClick={showFullRes} id={"postImage"+postNumber} className="postImage" src={"http://34.170.66.126:4000/fuggosimageworld/"+postNumber+".png"} />
             </h0>
             {/*<div href={"/post/" + postNumber}>*/}
             <div>

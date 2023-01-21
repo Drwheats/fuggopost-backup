@@ -1,5 +1,5 @@
 import {CgTrash} from "react-icons/cg";
-import {FiMinusCircle} from "react-icons/fi";
+import {FiPlusSquare, FiMinusSquare, FiXSquare} from "react-icons/fi";
 import {useState} from "react";
 
 export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber, motherPost, nestedReplies, timePosted}) {
@@ -12,7 +12,7 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("http://localhost:3001/delete", scoreJSON)
+        fetch("http://34.170.66.126:4000/delete", scoreJSON)
             .then(response => response.json());
         document.getElementById("reply"+enemyPostNumber).style.display = "none";
     }
@@ -53,9 +53,9 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
 
     return (
         <div className="enemyPostHolder" datatype={enemyPostBody} id={"reply"+enemyPostNumber}>
+
             <div className="replyHeaderHolder">
           <span className="replyMinusSign">
-                        <FiMinusCircle onClick={hidePost}/>
                     </span>                    <span >{nestedReplies.map((reply) => {
 
                 return <a name={"topReply"} className="inlineReply2" href={"/post/" + motherPost + "#reply"+reply} key={reply}>>>{reply}
@@ -63,15 +63,13 @@ export default function EnemyPost({enemyPostName, enemyPostBody, enemyPostNumber
                 // this.textFloat = document.getElementById("reply"+reply).innerText
 
             })} </span>
-
-                <span className="replyTrashSign">
-                       <CgTrash onClick={deletePost} />        <span>
-                </span>
-                    </span>
             </div>
-                <div className="enemyPostHeader">
-                    <a href="#mainTextSubmit" onClick={clickReply} className="enemyPostNumber">#{enemyPostNumber}</a><h5 className="enemyPostName">name: {enemyPostName}
-                </h5> <h5 className="enemyTimeStamp">{formatDate()}</h5>                    <img alt="" onClick={showFullRes} className="enemyPostImage" id={"enemyPostImage"+enemyPostNumber} src={"http://localhost:3001/fuggosimageworld/"+enemyPostNumber+".png"} />
+            <img alt="" onClick={showFullRes} className="enemyPostImage" id={"enemyPostImage"+enemyPostNumber} src={"http://34.170.66.126:4000/fuggosimageworld/"+enemyPostNumber+".png"} />
+
+            <div className="enemyPostHeader">
+                    <h5 className="enemyPostName"> <a href="#mainTextSubmit" onClick={clickReply} className="enemyPostNumber">#{enemyPostNumber} </a>name: {enemyPostName}
+                </h5> <h5 className="enemyTimeStamp">{formatDate()}                   <span className="minusIconHolder">  <FiMinusSquare onClick={hidePost}/> </span> <span className="plusIconHolder"> <FiPlusSquare onClick={showFullRes} /> </span><span className="xIconHolder"><FiXSquare  onClick={deletePost} />  </span>
+                </h5>
 
                 </div>
 

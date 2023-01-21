@@ -47,7 +47,7 @@ export default function PostPage() {
             headers: { 'Content-Type': 'application/json' },
             body: json_body
         }
-        fetch("http://localhost:3001/submitReply", scoreJSON)
+        fetch("http://34.170.66.126:4000/submitReply", scoreJSON)
             .then(response => response.json());
         setIsLoading(true);
         handleSubmit();
@@ -57,7 +57,7 @@ export default function PostPage() {
     // Fetching the data JSON variable from the server.
     useEffect(() => {
         if (isLoading) {
-            fetch("http://localhost:3001/pageInfo", scoreJSON)
+            fetch("http://34.170.66.126:4000/pageInfo", scoreJSON)
                 .then(response => response.json())
                 .then((
                     result) => {
@@ -266,7 +266,7 @@ export default function PostPage() {
     const handleSubmit = async () => {
         let formData = new FormData()
         formData.append('file', image.data)
-        const response = await fetch('http://localhost:3001/api/images', {
+        const response = await fetch('http://34.170.66.126:4000/api/images', {
             method: 'POST',
             body: formData,
         })
@@ -295,7 +295,7 @@ export default function PostPage() {
                 return <a className="inlineReply3" href={"/post/" + data.postNumber + "#reply"+r} textfloat={lol} key={r}>>>{r}  </a>
             })} </ul>
 
-                <h2 className="postTopic">{data.postTopic}<img alt="" onClick={showFullRes} className="originalPostImage" id={"originalPostImage"+pageLoc} src={"http://localhost:3001/fuggosimageworld/"+data.postNumber+".png"} /></h2>
+                <h2 className="postTopic">{data.postTopic}<img alt="" onClick={showFullRes} className="originalPostImage" id={"originalPostImage"+pageLoc} src={"http://34.170.66.126:4000/fuggosimageworld/"+data.postNumber+".png"} /></h2>
 
                 <div className="originalPosterHeader" id="originalPosterHeader"><a className="originalPosterNumber" onClick={clickReply} href="#mainTextSubmit" >#{data.postNumber}</a><h3 className="originalPosterName">{data.postName}</h3>
                     <h3 className="timeStampOP">{formatDate()}</h3>

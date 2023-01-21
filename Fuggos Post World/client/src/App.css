@@ -103,7 +103,7 @@ a:link{ text-decoration: none}
     height: fit-content;
     max-height: 500px;
 
-    overflow-x: auto;
+    /*overflow-x: auto;*/
 
 }
 
@@ -128,6 +128,7 @@ a:link{ text-decoration: none}
 }
 
 .trashHolder {
+
     margin-left: auto;
 
 }
@@ -186,7 +187,7 @@ a:link{ text-decoration: none}
     margin-top: 5px;
     margin-bottom: 5px;
     max-width: 95%;
-
+    min-height: 150px;
 
     width: fit-content;
     border-style: ridge;
@@ -198,16 +199,14 @@ a:link{ text-decoration: none}
 }
 .enemyPostHeader {
     width: fit-content;
-    height: 10%;
     flex-wrap: wrap;
     display: flex;
-    margin-left: 15px;
     text-align: left;
     font-size: 14px;
 }
 .enemyPostName {
-    margin-left: 20px;
-}
+margin: auto}
+
 .enemyPostNumber {
     height: fit-content;
     font-size: 16px;
@@ -290,6 +289,7 @@ button:active {
 }
 
 .plusGuy {
+
     display: flex;
     vertical-align: auto;
     flex-wrap: wrap;
@@ -298,13 +298,16 @@ button:active {
     font-size: 2rem;
 }
 
+
 .replyMinusSign {
     padding-right: 35px;
 }
 
 .replyTrashSign {
-    text-align: right;
     margin-left: auto;
+
+    float: right;
+    width: fit-content;
 }
 
 
@@ -384,6 +387,15 @@ button:active {
     width: 10%;
 }
 
+.backwardButton {
+    color: darkslategrey;
+}
+
+.backwardButton:hover{
+    size: 50px;
+    color: lightgreen;
+}
+
 .forwardButton{
     width: 10%;
 }
@@ -461,30 +473,40 @@ pre{
     max-width: 100px;
 }
 
-/*img[alt]:after {*/
-/*    display: block;*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    background-color: #fff;*/
-/*    font-family: 'Helvetica';*/
-/*    font-weight: 300;*/
-/*    line-height: 2;*/
-/*    text-align: center;*/
-/*    content: attr(alt);*/
-/*}*/
-
 .originalPostImage {
     max-height: 100px;
     max-width: 100px;
 
+
 }
 .enemyPostImage {
+    padding: 5px;
     float: left;
-
+    position: relative;
+    overflow: auto;
     max-height: 100px;
     max-width: 100px;
 
+}
+
+.xIconHolder:hover{
+
+    color: red;
+    size: 30px;
+    transform: scale(1.4);
+}
+.plusIconHolder:hover{
+    color: green;
+    /*size: 30px;*/
+    transform: scale(1.4);
+}
+
+.minusIconHolder:hover{
+    color: cornflowerblue;
+    size: 30px;
+    transform: scale(1.4);
+    animation: bounce 2.5s infinite;
+    -webkit-animation: bounce 2.5s infinite;
+    -moz-animation: bounce 2.5s infinite;
+    -o-animation: bounce 2.5s infinite;
 }
